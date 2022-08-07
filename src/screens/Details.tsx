@@ -33,7 +33,7 @@ const Details = ({
   const isFavorite = Boolean(favorite[data?.created]);
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: colors.background1}}>
       <Block>
         <Picture
           source={{uri: data.url}}

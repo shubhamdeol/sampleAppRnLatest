@@ -212,6 +212,7 @@ export const darkTheme = {
     textWarning: Colors.darkBrown50,
   },
   fonts: configureFonts(),
+  spacing: spacing,
 };
 
 const ThemeContext = React.createContext(defaultTheme);

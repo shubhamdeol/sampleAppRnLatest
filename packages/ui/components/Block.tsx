@@ -28,10 +28,10 @@ const Block = ({
   style,
   ...props
 }: IBlock) => {
-  const {spacing} = useTheme();
+  const {spacing, colors} = useTheme();
   const blockStyle = StyleSheet.flatten([
     flex !== undefined && {flex},
-    color !== undefined && {backgroundColor: color},
+    {backgroundColor: color || colors.background1},
     align !== undefined && {alignItems: align},
     justify !== undefined && {justifyContent: justify},
     row !== undefined && {flexDirection: 'row'},

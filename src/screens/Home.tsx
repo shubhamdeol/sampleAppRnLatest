@@ -1,5 +1,5 @@
 import React from 'react';
-import {Block, Input, Picture, Text, useTheme} from 'bad-ui';
+import {Block, Colors, Input, Picture, Text, useTheme} from 'bad-ui';
 import {useAtom, useAtomValue, useSetAtom} from 'jotai';
 import {_redditPicsDetails, _redditPicsLoading} from '../atoms/redditPics';
 import {api} from '../utils/api';
@@ -10,6 +10,7 @@ const dayjs = require('dayjs');
 function Home() {
   const [redditPicsDetails, setRedditPicsDetails] = useAtom(_redditPicsDetails);
   const setLoading = useSetAtom(_redditPicsLoading);
+  const {colors} = useTheme();
 
   const [searchResults, setSearchResults] = React.useState<any>([]);
 
@@ -48,15 +49,16 @@ function Home() {
   };
 
   return (
-    <Block flex={1}>
-      <FlatList
-        ListHeaderComponent={<Header onChangeText={onChangeText} />}
-        ListEmptyComponent={EmptyComponent}
-        data={searchResults}
-        keyExtractor={item => item.data.created}
-        renderItem={({item}) => <RedditItem data={item.data} />}
-      />
-    </Block>
+    <FlatList
+      style={{
+        backgroundColor: colors.background2,
+      }}
+      ListHeaderComponent={<Header onChangeText={onChangeText} />}
+      ListEmptyComponent={EmptyComponent}
+      data={searchResults}
+      keyExtractor={item => item.data.created}
+      renderItem={({item}) => <RedditItem data={item.data} />}
+    />
   );
 }
 
@@ -73,7 +75,7 @@ export const RedditItem = ({data}: any) => {
           data,
         })
       }>
-      <Block row color={colors.background2} m="s" pv="m" ph="m" radius={4}>
+      <Block row color={colors.background1} m="s" pv="m" ph="m" radius={4}>
         <Picture
           source={{uri: thumbnail}}
           style={{

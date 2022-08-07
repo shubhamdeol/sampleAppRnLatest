@@ -15,6 +15,8 @@ function HomeTab() {
       screenOptions={{
         tabBarActiveTintColor: colors.iconPrimary,
         tabBarInactiveTintColor: colors.iconLow,
+        tabBarActiveBackgroundColor: colors.surfaceDefaultAlt,
+        tabBarInactiveBackgroundColor: colors.surfaceDefaultAlt,
       }}>
       <Tab.Screen
         name="Home"
@@ -33,6 +35,10 @@ function HomeTab() {
         component={Favorites}
         options={{
           tabBarLabel: 'Favorites',
+          headerStyle: {
+            backgroundColor: colors.background2,
+          },
+          headerTintColor: colors.textHigh,
           tabBarIcon: ({color, size}) => {
             return <Icon color={color as any} name="cards-heart" size={size} />;
           },
@@ -43,6 +49,7 @@ function HomeTab() {
 }
 
 const NavigationRoot = () => {
+  const {colors} = useTheme();
   const renderRoutes = React.useMemo(() => {
     return (
       <>
@@ -66,7 +73,15 @@ const NavigationRoot = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>{renderRoutes}</Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: colors.background2,
+          },
+          headerTintColor: colors.textHigh,
+        }}>
+        {renderRoutes}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
