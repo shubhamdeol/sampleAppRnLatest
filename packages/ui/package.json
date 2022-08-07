@@ -1,0 +1,7 @@
+{
+  "name": "bad-ui",
+  "version": "1.0.0",
+  "dependencies": {
+    "react-native-vector-icons": "^9.2.0"
+  }
+}
