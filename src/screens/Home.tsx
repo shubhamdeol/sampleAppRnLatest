@@ -1,16 +1,18 @@
 import React from 'react';
-import {Block, Text} from 'bad-ui';
+import {Block, Input, Picture, Text, useTheme} from 'bad-ui';
 import {useAtom} from 'jotai';
 import {_redditPicsDetails} from '../atoms/redditPics';
 import {api} from '../utils/api';
-import {Animated, FlatList, View, Dimensions, Image} from 'react-native';
-
-const ITEM_WIDTH = Dimensions.get('window').width * 0.84;
-
-const ITEM_HEIGHT = Dimensions.get('window').height * 0.72;
+import {FlatList, Pressable} from 'react-native';
 
 function Home() {
   const [redditPicsDetails, setRedditPicsDetails] = useAtom(_redditPicsDetails);
+
+  const [searchResults, setSearchResults] = React.useState<any>([]);
+
+  React.useEffect(() => {
+    setSearchResults(redditPicsDetails);
+  }, [redditPicsDetails]);
 
   const getPetProfiles = React.useCallback(async () => {
     try {
@@ -27,10 +29,22 @@ function Home() {
     getPetProfiles();
   }, [getPetProfiles]);
 
+  const onChangeText = (value: string) => {
+    const updatedResults = redditPicsDetails?.filter(item => {
+      if (
+        item.data.title.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+      ) {
+        return item;
+      }
+    });
+    setSearchResults(updatedResults);
+  };
+
   return (
     <Block flex={1}>
       <FlatList
-        data={redditPicsDetails}
+        ListHeaderComponent={<Header onChangeText={onChangeText} />}
+        data={searchResults}
         keyExtractor={item => item.data.created}
         renderItem={({item}) => <RedditItem item={item} />}
       />
@@ -40,12 +54,36 @@ function Home() {
 
 export default Home;
 
-const RedditItem = ({item: {data}}) => {
+const RedditItem = ({item: {data}}: any) => {
+  const {thumbnail, thumbnail_height, thumbnail_width} = data;
+  const {colors} = useTheme();
   return (
-    <Block>
-      <Text h2 mv="s">
-        {data.title}
-      </Text>
-    </Block>
+    <Pressable>
+      <Block row color={colors.background2} m="s" pv="m" ph="m" radius={4}>
+        <Picture
+          source={{uri: thumbnail}}
+          style={{
+            height: thumbnail_height,
+            width: thumbnail_width,
+          }}
+        />
+        <Text h4 flex={1} ml="m">
+          {data.title}
+        </Text>
+      </Block>
+    </Pressable>
+  );
+};
+
+const Header = ({onChangeText}: any) => {
+  const {colors} = useTheme();
+  return (
+    <Input
+      onChangeText={onChangeText}
+      mh="m"
+      ph="m"
+      backgroundColor={colors.background2}
+      placeholder="Search By Title"
+    />
   );
 };

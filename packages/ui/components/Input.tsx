@@ -7,9 +7,10 @@ import {MarginPaddingProps} from './types';
 import {createMarginPaddingObj} from './utils';
 
 interface IInput extends TextInputProps, MarginPaddingProps {
-  label: string;
+  label?: string;
   placeholder?: string;
   errorMessage?: string;
+  backgroundColor?: string;
 }
 
 const Input = ({

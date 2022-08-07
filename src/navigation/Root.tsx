@@ -27,6 +27,7 @@ function HomeTab() {
           headerShown: false,
         }}
       />
+
       <Tab.Screen
         name="Account"
         component={Account}

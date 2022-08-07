@@ -12,6 +12,7 @@ export interface IBlock extends ViewProps, MarginPaddingProps {
   justify?: ViewStyle['justifyContent'];
   row?: boolean;
   position?: ViewStyle['position'];
+  radius?: number;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -23,6 +24,7 @@ const Block = ({
   justify,
   row,
   position,
+  radius,
   style,
   ...props
 }: IBlock) => {
@@ -34,6 +36,9 @@ const Block = ({
     justify !== undefined && {justifyContent: justify},
     row !== undefined && {flexDirection: 'row'},
     position !== undefined && {position},
+    radius !== undefined && {
+      borderRadius: radius,
+    },
     createMarginPaddingObj(props, spacing),
     style,
   ]) as ViewStyle;
