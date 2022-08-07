@@ -31,3 +31,9 @@ cd ios/
 pod install & cd ..
 yarn ios
 ```
+
+## further improvements that can be done are
+
+- replace Flatlist with flashlist by shopify https://shopify.github.io/flash-list/
+- use react-native-fast-image https://github.com/DylanVann/react-native-fast-image to cache images fetched and load ui faster.
+- To mark each item favorite I have used item create time as id, which is not might not be unique. Each item can have a unique id.
