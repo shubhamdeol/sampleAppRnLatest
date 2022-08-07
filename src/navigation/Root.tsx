@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {Account, Home} from '../screens';
+import {Favorites, Details, Home} from '../screens';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon, useTheme} from 'bad-ui';
 
@@ -29,12 +29,12 @@ function HomeTab() {
       />
 
       <Tab.Screen
-        name="Account"
-        component={Account}
+        name="Favorites"
+        component={Favorites}
         options={{
-          tabBarLabel: 'Account',
+          tabBarLabel: 'Favorites',
           tabBarIcon: ({color, size}) => {
-            return <Icon color={color as any} name="account" size={size} />;
+            return <Icon color={color as any} name="cards-heart" size={size} />;
           },
         }}
       />
@@ -45,13 +45,22 @@ function HomeTab() {
 const NavigationRoot = () => {
   const renderRoutes = React.useMemo(() => {
     return (
-      <Stack.Screen
-        name="HomeTab"
-        component={HomeTab}
-        options={{
-          header: () => null,
-        }}
-      />
+      <>
+        <Stack.Screen
+          name="HomeTab"
+          component={HomeTab}
+          options={{
+            header: () => null,
+          }}
+        />
+        <Stack.Screen
+          options={{
+            title: 'Details',
+          }}
+          name="Details"
+          component={Details}
+        />
+      </>
     );
   }, []);
 
